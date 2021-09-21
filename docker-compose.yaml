@@ -1,0 +1,41 @@
+version: '3.6'
+
+services:
+  api:
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+    ports:
+      - 3000:3000
+    networks:
+      - default
+    volumes:
+      - ./src:/home/node/app/src
+    #   - ./src/database/migrations:/usr/src/app/src/database/migrations
+    restart: always
+
+  db:
+    image: postgres:latest
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - pgconf:/etc/postgresql
+      - pglog:/var/log/postgresql
+    networks:
+      - default
+    ports:
+      - 5198:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: petshop_development
+    restart: always
+
+volumes:
+  pgdata:
+    driver: local
+  pgconf:
+    driver: local
+  pglog:
+    driver: local

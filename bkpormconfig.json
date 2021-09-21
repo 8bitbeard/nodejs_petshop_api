@@ -1,0 +1,19 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5198,
+    "username": "postgres",
+    "password": "postgres",
+    "database": "petshop_development",
+    "entities": [
+        "src/entities/*.ts"
+    ],
+    "migrations": [
+        "src/database/migrations/*.ts"
+    ],
+    "cli": {
+        "migrationsDir": "src/database/migrations",
+        "entitiesDir": "src/entities"
+    },
+    "autoSchemaSync": true
+}
