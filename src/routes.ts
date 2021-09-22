@@ -8,5 +8,6 @@ const usersController = new UsersController()
 
 
 router.get("/v1/users", usersController.index)
+router.post("/v1/users", usersController.create)
 
 export { router }
