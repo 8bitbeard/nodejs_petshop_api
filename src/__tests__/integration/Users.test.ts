@@ -1,11 +1,12 @@
 import request from "supertest";
-import { getConnection } from "typeorm";
+import { getConnection, createConnection } from "typeorm";
 import { app } from "../../app";
-import createConnection from "../../database";
+// import createConnection from "../../database";
+import { testingConfiguration } from "../../../ormconfig";
 
 describe('Users', () => {
     beforeEach(async() => {
-        const connection = await createConnection();
+        const connection = await createConnection(testingConfiguration);
 
         await connection.runMigrations();
     })

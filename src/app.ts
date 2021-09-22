@@ -3,9 +3,11 @@ import express, { Request, Response, NextFunction, response } from "express";
 import { router } from "./routes";
 
 // import "./database";
-import createConnection from "./database";
+// import createConnection from "./database";
+import { createConnection } from "typeorm";
+import { defaultConfiguration } from "../ormconfig";
 
-createConnection()
+createConnection(defaultConfiguration)
 
 const app = express();
 

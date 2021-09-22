@@ -5,6 +5,7 @@ services:
     build: .
     depends_on:
       - db
+      - db_tst
     env_file:
       - ./.env
     ports:
@@ -12,7 +13,7 @@ services:
     networks:
       - default
     volumes:
-      - ./src:/home/node/app/src
+      - .:/home/node/app
       - /home/node/app/node_modules
     #   - ./src/database/migrations:/usr/src/app/src/database/migrations
     restart: always
@@ -31,6 +32,18 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: petshop_development
+    restart: always
+
+  db_tst:
+    image: postgres:latest
+    networks:
+      - default
+    ports:
+      - 5199:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: petshop_testing
     restart: always
 
 volumes:
