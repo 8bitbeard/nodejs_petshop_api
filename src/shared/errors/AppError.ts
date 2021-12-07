@@ -5,7 +5,6 @@ interface IError {
   statusCode: number;
 }
 
-
 export class AppError {
   readonly code: string;
 
@@ -15,10 +14,10 @@ export class AppError {
 
   readonly statusCode: number;
 
-  constructor({code, message, details, statusCode}: IError) {
+  constructor({ code, message, details, statusCode }: IError) {
     this.code = code;
     this.message = message;
     this.details = details;
-    this.statusCode = statusCode
+    this.statusCode = statusCode;
   }
 }

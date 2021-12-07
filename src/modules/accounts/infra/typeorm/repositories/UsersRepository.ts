@@ -6,19 +6,23 @@ import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepositor
 import { User } from "../entities/User";
 
 class UsersRepository implements IUsersRepository {
-
   private repository: Repository<User>;
 
   constructor() {
     this.repository = getRepository(User);
   }
 
-  async create({first_name, last_name, email, password}: ICreateUserDTO): Promise<User> {
+  async create({
+    first_name,
+    last_name,
+    email,
+    password,
+  }: ICreateUserDTO): Promise<User> {
     const user = this.repository.create({
       first_name,
       last_name,
       email,
-      password
+      password,
     });
 
     await this.repository.save(user);
@@ -32,4 +36,4 @@ class UsersRepository implements IUsersRepository {
   }
 }
 
-export { UsersRepository }
+export { UsersRepository };
