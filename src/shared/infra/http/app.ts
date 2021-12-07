@@ -34,8 +34,9 @@ app.use(
     }
 
     return response.status(500).json({
-      status: "error",
+      code: "INTERNAL_SERVER_ERROR",
       message: "Internal Server Error",
+      details: ["Internal Server Error"],
     });
   }
 );
