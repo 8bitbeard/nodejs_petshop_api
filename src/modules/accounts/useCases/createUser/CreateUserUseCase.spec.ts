@@ -25,7 +25,7 @@ describe("Create User UseCase", () => {
     expect(user.first_name).toEqual(userData.first_name);
     expect(user.last_name).toEqual(userData.last_name);
     expect(user.email).toEqual(userData.email);
-    expect(user.password).toEqual(userData.password);
+    expect(user).not.toHaveProperty("password");
   });
 
   it("should not be able to create a user with an already user e-mail", async () => {

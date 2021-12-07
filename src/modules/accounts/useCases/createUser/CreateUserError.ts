@@ -10,3 +10,15 @@ export class UserAlreadyExists extends AppError {
     });
   }
 }
+export class InvalidPassword extends AppError {
+  constructor() {
+    super({
+      code: "INVALID_PASSWORD",
+      message: "The informed password is invalid!",
+      details: [
+        "The password must contain only numbers, be bigger than 5 digits, and be smaller than 13 digits!",
+      ],
+      statusCode: 400,
+    });
+  }
+}

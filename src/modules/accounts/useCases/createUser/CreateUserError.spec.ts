@@ -13,4 +13,19 @@ describe("Create User Error", () => {
       });
     }
   });
+
+  it("should be able to raise a InvalidPassword Error", async () => {
+    try {
+      throw new CreateUserError.InvalidPassword();
+    } catch (err) {
+      expect(err).toMatchObject({
+        statusCode: 400,
+        code: "INVALID_PASSWORD",
+        message: "The informed password is invalid!",
+        details: [
+          "The password must contain only numbers, be bigger than 5 digits, and be smaller than 13 digits!",
+        ],
+      });
+    }
+  });
 });

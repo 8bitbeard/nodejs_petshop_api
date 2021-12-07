@@ -22,7 +22,7 @@ describe("Create User Controller", () => {
       first_name: "Integration",
       last_name: "Testing",
       email: "integration.testing@example.com",
-      password: "1234",
+      password: "123456",
     };
 
     const response = await request(app).post("/api/v1/users").send(userData);
@@ -45,8 +45,6 @@ describe("Create User Controller", () => {
     };
 
     const response = await request(app).post("/api/v1/users").send(userData);
-
-    console.log(response.body);
 
     expect(response.statusCode).toBe(400);
   });

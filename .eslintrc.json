@@ -27,6 +27,7 @@
                 "code": 120
             }
         ],
+        "max-classes-per-file": "off",
         "prettier/prettier": "error",
         "camelcase": "off",
         "import/no-unresolved": "error",

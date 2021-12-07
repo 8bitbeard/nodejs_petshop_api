@@ -26,6 +26,10 @@ class CreateUserUseCase {
       throw new CreateUserError.UserAlreadyExists();
     }
 
+    if (password.length < 6 || password.length > 12) {
+      throw new CreateUserError.InvalidPassword();
+    }
+
     const user = await this.usersRepository.create({
       first_name,
       last_name,
