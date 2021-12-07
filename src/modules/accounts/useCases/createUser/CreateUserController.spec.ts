@@ -41,11 +41,35 @@ describe("Create User Controller", () => {
       first_name: "Integration",
       last_name: "Testing",
       email: "integration.testing@example.com",
-      password: "1234",
+      password: "123456",
     };
 
     const response = await request(app).post("/api/v1/users").send(userData);
 
     expect(response.statusCode).toBe(400);
+    expect(response.body).toMatchObject({
+      code: "USER_EXISTS",
+      message: "User already exists!",
+      details: ["This e-mail is already in use by another user!"],
+    });
+  });
+
+  it("should not be able to create a user with an invalid password", async () => {
+    const userData = {
+      first_name: "Invalid",
+      last_name: "Password",
+      email: "invalid_password@example.com",
+      password: "1234",
+    };
+    const response = await request(app).post("/api/v1/users").send(userData);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toMatchObject({
+      code: "INVALID_PASSWORD",
+      message: "The informed password is invalid!",
+      details: [
+        "The password must contain only numbers, be bigger than 5 digits, and be smaller than 13 digits!",
+      ],
+    });
   });
 });

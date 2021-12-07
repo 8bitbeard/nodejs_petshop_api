@@ -42,4 +42,17 @@ describe("Create User UseCase", () => {
       await createUserUseCase.execute(userData);
     }).rejects.toBeInstanceOf(CreateUserError.UserAlreadyExists);
   });
+
+  it("should not be able to create a user with an invalid password", async () => {
+    const userData = {
+      first_name: "Invalid",
+      last_name: "Password",
+      email: "invalid_password@exmaple.com",
+      password: "1234",
+    };
+
+    expect(async () => {
+      await createUserUseCase.execute(userData);
+    }).rejects.toBeInstanceOf(CreateUserError.InvalidPassword);
+  });
 });
