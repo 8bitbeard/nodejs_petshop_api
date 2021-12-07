@@ -1,55 +1,32 @@
-version: '3.6'
+version: '3.7'
 
 services:
-  api:
-    build: .
-    depends_on:
-      - db
-      - db_tst
-    env_file:
-      - ./.env
-    ports:
-      - 3000:3000
-    networks:
-      - default
-    volumes:
-      - .:/home/node/app
-      - /home/node/app/node_modules
-    #   - ./src/database/migrations:/usr/src/app/src/database/migrations
+  database:
+    image: postgres
+    container_name: petshop_database
     restart: always
-
-  db:
-    image: postgres:latest
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - pgconf:/etc/postgresql
-      - pglog:/var/log/postgresql
-    networks:
-      - default
     ports:
       - 5198:5432
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: petshop_development
-    restart: always
+      - POSTGRES_USER=petshop
+      - POSTGRES_PASSWORD=petshop
+      - POSTGRES_DB=petshop_development
+    volumes:
+      - pgdata:/data/postgres
+      - ./create_testing_db.sh:/docker-entrypoint-initdb.d/create_testing_db.sh
 
-  db_tst:
-    image: postgres:latest
-    networks:
-      - default
+  app:
+    build: .
+    container_name: node_petshop
     ports:
-      - 5199:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: petshop_testing
-    restart: always
+      - 3333:3333
+    links:
+      - database
+    depends_on:
+      - database
+    volumes:
+      - .:/usr/app
 
 volumes:
   pgdata:
-    driver: local
-  pgconf:
-    driver: local
-  pglog:
     driver: local
