@@ -1,7 +1,9 @@
 import { inject, injectable } from "tsyringe";
 
+import { IResponseUserDTO } from "@modules/accounts/dtos/IResponseUserDTO";
+import { UserMap } from "@modules/accounts/mapper/UserMap";
+
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { User } from "../../infra/typeorm/entities/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import * as CreateUserError from "./CreateUserError";
 
@@ -17,7 +19,7 @@ class CreateUserUseCase {
     last_name,
     email,
     password,
-  }: ICreateUserDTO): Promise<User> {
+  }: ICreateUserDTO): Promise<IResponseUserDTO> {
     const userAlreadyExists = await this.usersRepository.findUserByEmail(email);
 
     if (userAlreadyExists) {
@@ -31,7 +33,7 @@ class CreateUserUseCase {
       password,
     });
 
-    return user;
+    return UserMap.toDTO(user);
   }
 }
 
